@@ -1,0 +1,2 @@
+# bid
+build IME dictionary
