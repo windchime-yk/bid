@@ -26,3 +26,32 @@ Created by Deno.
 - [ ] API
 - [ ] CLI
 - [ ] Web App
+
+## Build dictionary workflow sample
+``` yml
+name: Build IME dictionary
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  upload:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Deno
+        uses: denolib/setup-deno@v2
+        with:
+          deno-version: v1.x
+      - name: Output dictionary data
+        run: |
+          deno task build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dictionary
+          path: dist
+          retention-days: 30
+```
