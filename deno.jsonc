@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "fmt": "deno fmt --ignore=README.md",
+    "fmtcheck": "deno fmt --check --ignore=README.md"
+  }
+}
