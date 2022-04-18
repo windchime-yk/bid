@@ -1,4 +1,5 @@
 # bId
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/bid/mod.ts)
 
 build IME dictionary. Working in progress.  
 Created by Deno.
