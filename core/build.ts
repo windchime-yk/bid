@@ -20,7 +20,7 @@ export const generateDictionaryFileByType = async (
   insert?: Insert,
 ) => {
   for (const dictionary in combineDictionaries) {
-    const filepath = `${basePath}/googleime_${dictionary.toLowerCase()}.txt`;
+    const filepath = `${basePath}/${imeType}_${dictionary.toLowerCase()}.txt`;
     await generateDictionaryFile(
       convertJsonToTsv(combineDictionaries[dictionary], imeType, insert),
       filepath,
