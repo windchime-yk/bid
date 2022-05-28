@@ -1,5 +1,5 @@
 import { assertEquals } from "../deps.ts";
-import { convertJsonToCsv, convertJsonToTsv } from "../util/convert.ts";
+import { convertJsonToCsv, convertJsonToTsv } from "../core/convert.ts";
 import { testCombineArray } from "./mockdata.ts";
 
 Deno.test("convert JSON to CSV", () => {
