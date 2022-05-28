@@ -20,7 +20,7 @@ export interface Dictionary {
 
 export type Dictionaries = Dictionary[];
 
-export interface CombineMap {
+export interface CombineDictionaries {
   [key: string]: Dictionaries;
 }
 
@@ -33,5 +33,5 @@ export interface BuildDictionaryFileOptions {
     kotoeri?: string;
   };
   dictionaries?: Dictionaries;
-  combineDictionaries?: CombineMap;
+  combineDictionaries?: CombineDictionaries;
 }

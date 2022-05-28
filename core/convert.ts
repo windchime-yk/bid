@@ -1,6 +1,7 @@
 import { COMMA, NEW_LINE, TAB } from "./config.ts";
 import type { Dictionaries, Insert } from "../model.ts";
 
+/** JSONデータに区切り文字を挟み込んでテキストデータに変換 */
 const convertJsonToTextData = (dictionaries: Dictionaries, insert: Insert) => {
   const convert = dictionaries.map((dictionary) =>
     `${dictionary.reading}${insert}${dictionary.word}${insert}${dictionary.type}`

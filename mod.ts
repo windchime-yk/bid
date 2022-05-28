@@ -6,18 +6,20 @@ import {
 } from "./core/build.ts";
 import type {
   BuildDictionaryFileOptions,
-  CombineMap,
+  CombineDictionaries,
   Dictionaries,
 } from "./model.ts";
 
-export const combineDictionary = (combineMap: CombineMap): Dictionaries => {
+/** 単語のまとまりを分解して一つの配列を形成 */
+export const combineDictionary = (combineDictionaries: CombineDictionaries): Dictionaries => {
   const dictionaries: Dictionaries = [];
-  for (const dictionary in combineMap) {
-    dictionaries.push(...combineMap[dictionary]);
+  for (const dictionary in combineDictionaries) {
+    dictionaries.push(...combineDictionaries[dictionary]);
   }
   return dictionaries;
 };
 
+/** 各IMEに合わせたユーザー辞書ファイルの作成 */
 export const buildDictionaryFile = async (
   options: BuildDictionaryFileOptions,
 ): Promise<void> => {
