@@ -1,9 +1,9 @@
 import { ensureDir } from "./deps.ts";
-import { convertJsonToCsv, convertJsonToTsv } from "./util/convert.ts";
+import { convertJsonToCsv, convertJsonToTsv } from "./core/convert.ts";
 import {
   generateDictionaryFile,
   generateDictionaryFileByTypeForGoogleIme,
-} from "./util/build.ts";
+} from "./core/build.ts";
 import type {
   BuildDictionaryFileOptions,
   CombineMap,

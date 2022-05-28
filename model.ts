@@ -1,4 +1,4 @@
-import { COMMA, TAB } from "./util/config.ts";
+import { COMMA, TAB } from "./core/config.ts";
 
 type DictionaryType =
   | "顔文字"
