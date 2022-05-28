@@ -2,7 +2,7 @@ import { ensureDir } from "./deps.ts";
 import { convertJsonToCsv, convertJsonToTsv } from "./core/convert.ts";
 import {
   generateDictionaryFile,
-  generateDictionaryFileByTypeForGoogleIme,
+  generateDictionaryFileByType,
 } from "./core/build.ts";
 import type {
   BuildDictionaryFileOptions,
@@ -11,7 +11,9 @@ import type {
 } from "./model.ts";
 
 /** 単語のまとまりを分解して一つの配列を形成 */
-export const combineDictionary = (combineDictionaries: CombineDictionaries): Dictionaries => {
+export const combineDictionary = (
+  combineDictionaries: CombineDictionaries,
+): Dictionaries => {
   const dictionaries: Dictionaries = [];
   for (const dictionary in combineDictionaries) {
     dictionaries.push(...combineDictionaries[dictionary]);
@@ -31,20 +33,27 @@ export const buildDictionaryFile = async (
   await ensureDir(basePath);
   if (imeTxtPathList.kotoeri) {
     await generateDictionaryFile(
-      convertJsonToCsv(dictionaries),
+      convertJsonToCsv(dictionaries, "kotoeri"),
       imeTxtPathList.kotoeri,
     );
   }
   if (imeTxtPathList.google) {
     await generateDictionaryFile(
-      convertJsonToTsv(dictionaries),
+      convertJsonToTsv(dictionaries, "google", { after: "\n" }),
       imeTxtPathList.google,
     );
   }
   if (combineDictionaries) {
-    await generateDictionaryFileByTypeForGoogleIme(
+    await generateDictionaryFileByType(
       basePath,
       combineDictionaries,
+      "google",
+      { after: "\n" },
+    );
+    await generateDictionaryFileByType(
+      basePath,
+      combineDictionaries,
+      "kotoeri",
     );
   }
 };

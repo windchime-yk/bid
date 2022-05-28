@@ -1,4 +1,4 @@
-import type { CombineMap, Dictionaries } from "../model.ts";
+import type { CombineDictionaries, Dictionaries } from "../model.ts";
 
 const testArray: Dictionaries = [
   {
@@ -14,7 +14,7 @@ const test2Array: Dictionaries = [
     reading: "わいけー",
   },
 ];
-export const testAllArray: CombineMap = {
+export const testAllArray: CombineDictionaries = {
   testArray,
   test2Array,
 };

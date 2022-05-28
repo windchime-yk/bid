@@ -1,5 +1,12 @@
 import { COMMA, TAB } from "./core/config.ts";
 
+export type IMEType = "google" | "kotoeri";
+
+export interface Insert {
+  before?: string;
+  after?: string;
+}
+
 type DictionaryType =
   | "顔文字"
   | "記号"
@@ -24,7 +31,7 @@ export interface CombineDictionaries {
   [key: string]: Dictionaries;
 }
 
-export type Insert = typeof TAB | typeof COMMA;
+export type Delimiter = typeof TAB | typeof COMMA;
 
 export interface BuildDictionaryFileOptions {
   basePath: string;
