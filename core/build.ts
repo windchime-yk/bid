@@ -1,23 +1,28 @@
 import { writeFile } from "../deps.ts";
 import { convertJsonToTsv } from "./convert.ts";
-import type { CombineMap } from "../model.ts";
+import type { CombineDictionaries, IMEType, Insert } from "../model.ts";
 
+/** ファイル出力ログを生成 */
 const outputBuildLog = (pathname: string) =>
   console.log(`build complate ${pathname}`);
 
+/** ユーザー辞書ファイルの生成 */
 export const generateDictionaryFile = async (data: string, path: string) => {
   await writeFile(data, path);
   outputBuildLog(path);
 };
 
-export const generateDictionaryFileByTypeForGoogleIme = async (
+/** 単語のまとまりごとにユーザー辞書ファイルを生成 */
+export const generateDictionaryFileByType = async (
   basePath: string,
-  combineMap: CombineMap,
+  combineDictionaries: CombineDictionaries,
+  imeType: IMEType,
+  insert?: Insert,
 ) => {
-  for (const dictionary in combineMap) {
+  for (const dictionary in combineDictionaries) {
     const filepath = `${basePath}/googleime_${dictionary.toLowerCase()}.txt`;
     await generateDictionaryFile(
-      convertJsonToTsv(combineMap[dictionary]),
+      convertJsonToTsv(combineDictionaries[dictionary], imeType, insert),
       filepath,
     );
   }
