@@ -47,7 +47,8 @@ export const buildDictionaryFile = async (
     await generateDictionaryFile(
       convertJsonToTsv(dictionaries, "google", { after: "\n" }),
       imeTxtPathList.msime,
-      "UTF16LE",
+      "UTF16",
+      "LE",
     );
   }
   if (combineDictionaries) {
@@ -68,9 +69,10 @@ export const buildDictionaryFile = async (
       basePath,
       convertJsonToTsv,
       combineDictionaries,
-      'msime',
+      "msime",
       {},
-      'UTF16LE'
+      "UTF16",
+      "LE",
     );
   }
 };
