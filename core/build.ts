@@ -1,6 +1,10 @@
 import { writeFile } from "../deps.ts";
-import { convertJsonToTsv } from "./convert.ts";
-import type { CombineDictionaries, IMEType, Insert } from "../model.ts";
+import type {
+  CombineDictionaries,
+  Dictionaries,
+  IMEType,
+  Insert,
+} from "../model.ts";
 
 /** ファイル出力ログを生成 */
 const outputBuildLog = (pathname: string) =>
@@ -15,6 +19,11 @@ export const generateDictionaryFile = async (data: string, path: string) => {
 /** 単語のまとまりごとにユーザー辞書ファイルを生成 */
 export const generateDictionaryFileByType = async (
   basePath: string,
+  converter: (
+    dictionaries: Dictionaries,
+    imeType: IMEType,
+    insert?: Insert,
+  ) => string,
   combineDictionaries: CombineDictionaries,
   imeType: IMEType,
   insert?: Insert,
@@ -22,7 +31,7 @@ export const generateDictionaryFileByType = async (
   for (const dictionary in combineDictionaries) {
     const filepath = `${basePath}/${imeType}_${dictionary.toLowerCase()}.txt`;
     await generateDictionaryFile(
-      convertJsonToTsv(combineDictionaries[dictionary], imeType, insert),
+      converter(combineDictionaries[dictionary], imeType, insert),
       filepath,
     );
   }

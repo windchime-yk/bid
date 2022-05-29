@@ -46,12 +46,14 @@ export const buildDictionaryFile = async (
   if (combineDictionaries) {
     await generateDictionaryFileByType(
       basePath,
+      convertJsonToCsv,
       combineDictionaries,
       "google",
       { after: "\n" },
     );
     await generateDictionaryFileByType(
       basePath,
+      convertJsonToTsv,
       combineDictionaries,
       "kotoeri",
     );
