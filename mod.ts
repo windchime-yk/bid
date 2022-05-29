@@ -43,6 +43,13 @@ export const buildDictionaryFile = async (
       imeTxtPathList.google,
     );
   }
+  if (imeTxtPathList.msime) {
+    await generateDictionaryFile(
+      convertJsonToTsv(dictionaries, "google", { after: "\n" }),
+      imeTxtPathList.msime,
+      "UTF16LE",
+    );
+  }
   if (combineDictionaries) {
     await generateDictionaryFileByType(
       basePath,
@@ -56,6 +63,14 @@ export const buildDictionaryFile = async (
       convertJsonToCsv,
       combineDictionaries,
       "kotoeri",
+    );
+    await generateDictionaryFileByType(
+      basePath,
+      convertJsonToTsv,
+      combineDictionaries,
+      'msime',
+      {},
+      'UTF16LE'
     );
   }
 };

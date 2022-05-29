@@ -1,6 +1,6 @@
 import { COMMA, TAB } from "./core/config.ts";
 
-export type IMEType = "google" | "kotoeri";
+export type IMEType = "google" | "kotoeri" | "msime";
 
 export interface Insert {
   before?: string;
@@ -38,6 +38,7 @@ export interface BuildDictionaryFileOptions {
   imeTxtPathList: {
     google?: string;
     kotoeri?: string;
+    msime?: string;
   };
   dictionaries?: Dictionaries;
   combineDictionaries?: CombineDictionaries;

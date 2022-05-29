@@ -11,8 +11,8 @@ const outputBuildLog = (pathname: string) =>
   console.log(`build complate ${pathname}`);
 
 /** ユーザー辞書ファイルの生成 */
-export const generateDictionaryFile = async (data: string, path: string) => {
-  await writeFile(data, path);
+export const generateDictionaryFile = async (data: string, path: string, encode: "UTF8" | "UTF16" | "UTF16BE" | "UTF16LE" | "EUCJP" | "JIS" | "SJIS" = "UTF8") => {
+  await writeFile(data, path, encode);
   outputBuildLog(path);
 };
 
@@ -27,12 +27,14 @@ export const generateDictionaryFileByType = async (
   combineDictionaries: CombineDictionaries,
   imeType: IMEType,
   insert?: Insert,
+  encode: "UTF8" | "UTF16" | "UTF16BE" | "UTF16LE" | "EUCJP" | "JIS" | "SJIS" = "UTF8",
 ) => {
   for (const dictionary in combineDictionaries) {
     const filepath = `${basePath}/${imeType}_${dictionary.toLowerCase()}.txt`;
     await generateDictionaryFile(
       converter(combineDictionaries[dictionary], imeType, insert),
       filepath,
+      encode,
     );
   }
 };
