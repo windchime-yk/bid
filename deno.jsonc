@@ -2,6 +2,7 @@
   "tasks": {
     "fmt": "deno fmt --ignore=README.md",
     "fmtcheck": "deno fmt --check --ignore=README.md",
-    "test": "deno test --unstable"
+    "test": "deno test --no-lock",
+    "build:example": "deno run --allow-write=dist/ --no-lock example/main.ts"
   }
 }
