@@ -1,10 +1,19 @@
-import { writeFile } from "../deps.ts";
 import type {
   CombineDictionaries,
   Dictionaries,
   IMEType,
   Insert,
 } from "../model.ts";
+
+/** 非同期にファイル作成を行なう */
+export const writeFile = async (
+  rawdata: string,
+  file: string,
+): Promise<void> => {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(rawdata);
+  await Deno.writeFile(file, data);
+};
 
 /** ファイル出力ログを生成 */
 const outputBuildLog = (pathname: string) =>
