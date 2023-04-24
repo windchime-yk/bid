@@ -1,6 +1,23 @@
 import { COMMA, TAB } from "./core/config.ts";
 
-export type IMEType = "google" | "kotoeri";
+export type Encoding =
+  | "ascii"
+  | "utf8"
+  | "utf-8"
+  | "utf16le"
+  | "ucs2"
+  | "ucs-2"
+  | "base64"
+  | "base64url"
+  | "latin1"
+  | "binary"
+  | "hex";
+
+export enum IME_TYPE {
+  Google = "googleime",
+  Apple = "kotoeri",
+  Microsoft = "msime",
+}
 
 export interface Insert {
   before?: string;
@@ -36,8 +53,9 @@ export type Delimiter = typeof TAB | typeof COMMA;
 export interface BuildDictionaryFileOptions {
   basePath: string;
   imeTxtPathList: {
-    google?: string;
+    googleime?: string;
     kotoeri?: string;
+    msime?: string;
   };
   dictionaries?: Dictionaries;
   combineDictionaries?: CombineDictionaries;

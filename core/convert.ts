@@ -1,26 +1,26 @@
 import { COMMA, NEW_LINE, TAB } from "./config.ts";
-import type {
+import {
   Delimiter,
   Dictionaries,
   Dictionary,
-  IMEType,
+  IME_TYPE,
   Insert,
 } from "../model.ts";
 
 /** IMEごとに必要な単語情報の絞り込みと順番整理を行なう */
 const orderdDictionary = (
   dictionary: Dictionary,
-  imeType: IMEType,
+  imeType: IME_TYPE,
 ): Dictionary => {
   const { type, word, reading } = dictionary;
-  if (imeType === "google") {
+  if (imeType === IME_TYPE.Google) {
     return {
       reading,
       word,
       type,
     };
   }
-  if (imeType === "kotoeri") {
+  if (imeType === IME_TYPE.Apple) {
     return {
       reading,
       word,
@@ -48,7 +48,7 @@ export const insertDelimiter = (
 const convertJsonToTextData = (
   dictionaries: Dictionaries,
   delimiter: Delimiter,
-  imeType: IMEType,
+  imeType: IME_TYPE,
   insert?: Insert,
 ) => {
   const convert = dictionaries.map((dictionary) => {
@@ -61,13 +61,13 @@ const convertJsonToTextData = (
 /** JSONをCSV（コンマで区切られた汎用型データ形式、ことえりで使用）のテキストデータに変換する */
 export const convertJsonToCsv = (
   dictionaries: Dictionaries,
-  imeType: IMEType,
+  imeType: IME_TYPE,
   insert?: Insert,
 ): string => convertJsonToTextData(dictionaries, COMMA, imeType, insert);
 
 /** JSONをTSV（タブで区切られた汎用型データ形式、Google日本語入力で使用）のテキストデータに変換する */
 export const convertJsonToTsv = (
   dictionaries: Dictionaries,
-  imeType: IMEType,
+  imeType: IME_TYPE,
   insert?: Insert,
 ): string => convertJsonToTextData(dictionaries, TAB, imeType, insert);
