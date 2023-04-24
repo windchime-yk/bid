@@ -252,8 +252,9 @@ const BASE_PATH = "./dist";
 const options: BuildDictionaryFileOptions = {
   basePath: BASE_PATH,
   imeTxtPathList: {
-    google: `${BASE_PATH}/googleime.txt`,
+    googleime: `${BASE_PATH}/googleime.txt`,
     kotoeri: `${BASE_PATH}/kotoeri.txt`,
+    msime: `${BASE_PATH}/msime.txt`,
   },
   dictionaries: dictionaryAll,
   combineDictionaries: dictionaryByType,
