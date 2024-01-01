@@ -1,73 +1,95 @@
-import { COMMA, NEW_LINE, TAB } from "./config.ts";
-import {
-  Delimiter,
-  Dictionaries,
-  Dictionary,
-  IME_TYPE,
-  Insert,
+import { parse } from "../deps.ts";
+import { detectDelimiter, detectWordclass } from "./validation.ts";
+import { imeConfig, NEW_LINE, wordclassMapping } from "./config.ts";
+import type {
+  ImeType,
+  InputUserDictionary,
+  OutputUserDictionary,
 } from "../model.ts";
+
+/**
+ * CSVからJSONに変換する
+ * @param csv ユーザーが入力するCSVデータ
+ * @returns CSVから出力されたJSONデータ
+ */
+export const parsedCsvToJson = (
+  csv: string,
+): Record<string, string | undefined>[] => {
+  return parse(csv, { skipFirstRow: true });
+};
 
 /** IMEごとに必要な単語情報の絞り込みと順番整理を行なう */
 const orderdDictionary = (
-  dictionary: Dictionary,
-  imeType: IME_TYPE,
-): Dictionary => {
-  const { type, word, reading } = dictionary;
-  if (imeType === IME_TYPE.Google) {
+  dictionary: InputUserDictionary,
+  imeType: ImeType,
+): OutputUserDictionary => {
+  const { lang } = imeConfig[imeType];
+  const { type, word, reading, description, isSuggest, isSuppress } =
+    dictionary;
+
+  if (imeType === "GBoard") {
     return {
       reading,
       word,
-      type,
+      lang,
     };
   }
-  if (imeType === IME_TYPE.Apple) {
+
+  const wordclass = detectWordclass(
+    wordclassMapping[type][imeType],
+    imeType,
+    isSuggest,
+    isSuppress,
+  );
+
+  if (imeType === "Microsoft IME") {
     return {
       reading,
       word,
-      type,
+      type: wordclass,
+      description,
     };
   }
-  return dictionary;
+
+  return {
+    reading,
+    word,
+    type: wordclass,
+  };
 };
 
-/** 単語情報に区切り文字を挟み込む */
-export const insertDelimiter = (
-  dictionary: Dictionary,
-  delimiter: Delimiter,
+/**
+ * @param dictionary ユーザーから入力されたユーザー辞書データ
+ * @param imeType 対象IME
+ * @returns
+ */
+const insertDelimiter = (
+  dictionary: OutputUserDictionary,
+  imeType: ImeType,
 ): string[] => {
+  const { dataType } = imeConfig[imeType];
+  const delimiter = detectDelimiter(dataType);
   const wordList: string[] = [];
   for (const key in dictionary) {
-    wordList.push(dictionary[key as keyof Dictionary]);
+    wordList.push(dictionary[key as keyof OutputUserDictionary]);
     wordList.push(delimiter);
   }
   wordList.pop();
   return wordList;
 };
 
-/** 単語情報に区切り文字を挟み込んでテキストデータに変換 */
-const convertJsonToTextData = (
-  dictionaries: Dictionaries,
-  delimiter: Delimiter,
-  imeType: IME_TYPE,
-  insert?: Insert,
-) => {
-  const convert = dictionaries.map((dictionary) => {
+/**
+ * 対象IME向けのユーザー辞書テキストに変換
+ * @param dictionaries ユーザーから入力されたユーザー辞書データ
+ * @param imeType 対象IME
+ * @returns
+ */
+export const convertJsonToTextData = (
+  dictionaries: InputUserDictionary[],
+  imeType: ImeType,
+): string => {
+  return dictionaries.map((dictionary) => {
     const orderd = orderdDictionary(dictionary, imeType);
-    return insertDelimiter(orderd, delimiter).join("");
+    return insertDelimiter(orderd, imeType).join("");
   }).join(NEW_LINE);
-  return `${insert?.before || ""}${convert}${insert?.after || ""}`;
 };
-
-/** JSONをCSV（コンマで区切られた汎用型データ形式、ことえりで使用）のテキストデータに変換する */
-export const convertJsonToCsv = (
-  dictionaries: Dictionaries,
-  imeType: IME_TYPE,
-  insert?: Insert,
-): string => convertJsonToTextData(dictionaries, COMMA, imeType, insert);
-
-/** JSONをTSV（タブで区切られた汎用型データ形式、Google日本語入力で使用）のテキストデータに変換する */
-export const convertJsonToTsv = (
-  dictionaries: Dictionaries,
-  imeType: IME_TYPE,
-  insert?: Insert,
-): string => convertJsonToTextData(dictionaries, TAB, imeType, insert);

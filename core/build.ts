@@ -1,22 +1,34 @@
-import { Buffer } from "../deps.ts";
-import {
-  CombineDictionaries,
-  Dictionaries,
-  Encoding,
-  IME_TYPE,
-  Insert,
-} from "../model.ts";
+import { Buffer, compress } from "../deps.ts";
+import { imeConfig } from "./config.ts";
+import type { ImeType } from "../model.ts";
 
-/** 非同期にファイル作成を行なう */
-export const writeFile = async (
+/**
+ * 非同期でユーザー辞書ファイルを作成する
+ * @param rawdata ファイルに書き込まれるユーザー辞書データ
+ * @param filepath ファイル名
+ * @param imeType 対象IME
+ */
+const writeFile = async (
   rawdata: string,
-  file: string,
-  encode: Encoding,
-  bom: boolean,
+  filePath: string,
+  imeType: ImeType,
 ): Promise<void> => {
+  const { encoding, bom } = imeConfig[imeType];
   const bomString = bom ? `\ufeff${rawdata}` : rawdata;
-  const data = Buffer.from(bomString, encode);
-  await Deno.writeFile(file, data);
+  const data = Buffer.from(bomString, encoding);
+  await Deno.writeFile(filePath, data);
+};
+
+/**
+ * 非同期でファイルを圧縮する
+ * @param filePath 圧縮対象
+ * @param archivePath 圧縮後の保存先
+ */
+export const compressFile = async (
+  filePath: string,
+  archivePath: string,
+): Promise<void> => {
+  await compress(filePath, archivePath);
 };
 
 /** ファイル出力ログを生成 */
@@ -27,44 +39,8 @@ const outputBuildLog = (pathname: string) =>
 export const generateDictionaryFile = async (
   data: string,
   path: string,
-  encode: Encoding,
-  bom: boolean,
+  imeType: ImeType,
 ) => {
-  await writeFile(data, path, encode, bom);
+  await writeFile(data, path, imeType);
   outputBuildLog(path);
-};
-
-export const detectEncoding = (
-  imeType: IME_TYPE,
-): { encode: Encoding; bom: boolean } => {
-  switch (imeType) {
-    case IME_TYPE.Microsoft:
-      return { encode: "utf16le", bom: true };
-    default:
-      return { encode: "utf8", bom: false };
-  }
-};
-
-/** 単語のまとまりごとにユーザー辞書ファイルを生成 */
-export const generateDictionaryFileByType = async (
-  basePath: string,
-  converter: (
-    dictionaries: Dictionaries,
-    imeType: IME_TYPE,
-    insert?: Insert,
-  ) => string,
-  combineDictionaries: CombineDictionaries,
-  imeType: IME_TYPE,
-  insert?: Insert,
-) => {
-  for (const dictionary in combineDictionaries) {
-    const filepath = `${basePath}/${imeType}_${dictionary.toLowerCase()}.txt`;
-    const { encode, bom } = detectEncoding(imeType);
-    await generateDictionaryFile(
-      converter(combineDictionaries[dictionary], imeType, insert),
-      filepath,
-      encode,
-      bom,
-    );
-  }
 };
