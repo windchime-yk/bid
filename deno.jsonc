@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "build": "deno run --allow-read --allow-write --allow-run cli.ts"
+    "build": "deno run --allow-read --allow-write --allow-run cli.ts",
+    "generate": "deno run --allow-read --allow-write npm:quicktype dictionary.model.ts -o schema.json --lang schema"
   },
   "exclude": ["README.md"]
 }

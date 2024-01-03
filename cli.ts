@@ -32,7 +32,7 @@ for await (const dirEntry of walk(join(Deno.cwd(), args.dir))) {
         break;
       }
       default:
-        data = JSON.parse(await readFile(dirEntry.path));
+        data = JSON.parse(await readFile(dirEntry.path)).dictionaries;
         break;
     }
 
