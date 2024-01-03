@@ -1,4 +1,4 @@
-import { ensureDir, join, parseArgs, walk } from "./deps.ts";
+import { compress, ensureDir, join, parseArgs, walk } from "./deps.ts";
 import { isValidFileExtention, isValidJson } from "./core/validation.ts";
 import {
   convertJsonToTextData,
@@ -10,7 +10,7 @@ import { CliError } from "./core/error.ts";
 import type { ImeType } from "./model.ts";
 
 const args = parseArgs(Deno.args, {
-  boolean: ["all", "google", "macos", "microsoft", "gboard"],
+  boolean: ["all", "google", "macos", "microsoft", "gboard", "compress"],
   string: ["dir"],
 });
 
@@ -72,4 +72,8 @@ for await (const dirEntry of walk(join(Deno.cwd(), args.dir))) {
       );
     }
   }
+}
+
+if (args.compress) {
+  await compress("bid_output", "bid_output_archive");
 }
