@@ -7,6 +7,7 @@ import type {
   YesOrNo,
 } from "../model.ts";
 import { COMMA, TAB } from "./config.ts";
+import { DataPropertyError, FileTypeError } from "./error.ts";
 
 /**
  * ファイル名がCSVかJSONか確認する
@@ -24,7 +25,7 @@ export const isValidFileExtention = (filename: string): Result<string> => {
   } else {
     return {
       success: false,
-      error: new Error("File Type Error"),
+      error: new FileTypeError(filename),
     };
   }
 };
@@ -49,7 +50,7 @@ export const isValidJson = (
   if (!InputuserDictionarySchema.safeParse(jsonData).success) {
     return {
       success: false,
-      error: new Error("Data Proptry Error"),
+      error: new DataPropertyError(),
     };
   }
 

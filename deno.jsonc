@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "build": "deno run --allow-write=dist/ example/main.ts"
+    "build": "deno run --allow-read  --allow-write cli.ts"
   },
   "exclude": ["README.md"]
 }

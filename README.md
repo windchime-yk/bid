@@ -25,10 +25,10 @@ Created by Deno.
 ## Feature
 
 - [ ] API
-- [ ] CLI
+- [x] CLI
 - [ ] Web App
 
-## Build dictionary workflow sample
+## Build dictionary workflow example
 ``` yml
 name: Build IME dictionary
 on:
@@ -48,11 +48,12 @@ jobs:
           deno-version: v1.x
       - name: Output dictionary data
         run: |
-          deno task build
+          deno install --allow-read --allow-write -n bid https://deno.land/x/bid/cli.ts
+          bid --dir=test/mock --all
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: dictionary
-          path: dist
+          path: bid_output
           retention-days: 30
 ```

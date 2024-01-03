@@ -1,6 +1,7 @@
+import { assertEquals } from "../deps.ts";
 import { convertJsonToTextData, parsedCsvToJson } from "../core/convert.ts";
 import { isValidFileExtention, isValidJson } from "../core/validation.ts";
-import { assertEquals } from "../deps.ts";
+import { DataPropertyError, FileTypeError } from "../core/error.ts";
 
 Deno.test("ファイル形式がCSVかJSONかを確認する", async (t) => {
   await t.step("CSV", () => {
@@ -18,7 +19,7 @@ Deno.test("ファイル形式がCSVかJSONかを確認する", async (t) => {
   await t.step("それ以外", () => {
     assertEquals(isValidFileExtention("test/mock.test.yml"), {
       success: false,
-      error: new Error("File Type Error"),
+      error: new FileTypeError("test/mock.test.yml"),
     });
   });
 });
@@ -115,7 +116,7 @@ Deno.test("JSONプロパティが想定されたものか検査する", async (t
       },
     );
   });
-  await t.step("想定内", () => {
+  await t.step("想定外", () => {
     assertEquals(
       isValidJson([
         {
@@ -140,7 +141,7 @@ Deno.test("JSONプロパティが想定されたものか検査する", async (t
       ]),
       {
         success: false,
-        error: new Error(),
+        error: new DataPropertyError(),
       },
     );
   });

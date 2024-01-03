@@ -93,3 +93,9 @@ export const convertJsonToTextData = (
     return insertDelimiter(orderd, imeType).join("");
   }).join(NEW_LINE);
 };
+
+export const readFile = async (path: string): Promise<string> => {
+  const decoder = new TextDecoder();
+  const data = await Deno.readFile(path);
+  return decoder.decode(data);
+};
