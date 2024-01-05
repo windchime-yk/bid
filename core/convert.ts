@@ -91,7 +91,7 @@ export const convertJsonToTextData = (
   return dictionaries.map((dictionary) => {
     const orderd = orderdDictionary(dictionary, imeType);
     return insertDelimiter(orderd, imeType).join("");
-  }).join(NEW_LINE);
+  }).join(NEW_LINE) + NEW_LINE;
 };
 
 export const readFile = async (path: string): Promise<string> => {
