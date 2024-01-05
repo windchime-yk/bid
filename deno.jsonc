@@ -6,5 +6,5 @@
     "coverage": "deno coverage coverage",
     "coverage:output": "deno coverage coverage --lcov --output=coverage.lcov"
   },
-  "exclude": ["README.md"]
+  "exclude": ["README.md", "README_EN.md"]
 }
