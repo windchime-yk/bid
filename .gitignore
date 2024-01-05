@@ -1,2 +1,4 @@
 .DS_Store
-dist/
+coverage/
+bid_output/
+bid_output_archive.zip

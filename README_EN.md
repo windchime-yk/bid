@@ -2,53 +2,55 @@
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/bid/mod.ts)
 [![codecov](https://codecov.io/github/windchime-yk/bid/graph/badge.svg?token=CVL3AFDJQQ)](https://codecov.io/github/windchime-yk/bid)
 
-Denoで作られた、IMEユーザー辞書統一出力ツール。  
-すべてのIMEユーザー辞書を一つのファイルから作成することを目標にしています。
+build IME dictionary.  
+Created by Deno.
 
-## 対応言語
-- 日本語
+The goal is to create all IME user dictionaries from a single file.
 
-## 対応IME
+## Language Support
+- Japanese
+
+## Dictionary Support
 - Google Japanese IME
 - macOS Japanese Input Method
 - Gboard
 - Microsoft IME
 
-## IMEユーザー辞書テーブル
-| IME名                          | データ形式 | ジャンル名は設定できるか | 品詞は設定できるか |
+## Dictionary Table
+| Name                          | Split Type | Can Set Genre | Can Set Word class |
 | ----------------------------- | ---------- | ------------- | ------------------ |
 | Google IME                    | TSV        | ✔             | ✔                  |
 | macOS Japanese Input Method   | CSV        | ✗             | ✔                  |
 | Gboard                        | TSV        | ✗             | ✗                  |
 | Microsoft IME                 | TSV        | ✗             | ✔                  |
 
-## 提供手段
+## Feature
 - [ ] API
 - [x] CLI
 - [ ] Web App
 
-## インストール方法
+## Install
 ``` bash
 deno install --allow-read --allow-write --allow-run -n bid https://deno.land/x/bid/cli.ts
 ```
 
-## 使用方法
-### すべての対応IMEユーザー辞書を出力
+## Usage
+### All dictionaries
 ``` bash
 bid --dir=test/mock --all
 ```
 
-### 特定の対応IMEユーザー辞書を出力
+### Specific dictionaries
 ``` bash
 bid --dir=test/mock --google --macos --microsoft --gboard
 ```
 
-### 出力したユーザー辞書ファイル群を圧縮
+### Compress dictionaries
 ``` bash
 bid --dir=test/mock --all --compress
 ```
 
-## GitHub Actionsでの設定例
+## Build dictionary workflow example
 ``` yml
 name: Build IME dictionary
 on:
