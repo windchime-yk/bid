@@ -1,5 +1,6 @@
 # bId
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/bid/mod.ts)
+[![codecov](https://codecov.io/github/windchime-yk/bid/graph/badge.svg?token=CVL3AFDJQQ)](https://codecov.io/github/windchime-yk/bid)
 
 build IME dictionary.  
 Created by Deno.
