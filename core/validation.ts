@@ -1,4 +1,4 @@
-import { z } from "../deps.ts";
+import { extname, z } from "../deps.ts";
 import type {
   ImeConfig,
   ImeType,
@@ -15,8 +15,8 @@ import { DataPropertyError, FileTypeError } from "./error.ts";
  * @returns 拡張子かファイルタイプエラーを返すResult型
  */
 export const isValidFileExtention = (filename: string): Result<string> => {
-  const VALID_EXT_LIST = ["csv", "json"];
-  const ext = filename.split(".").at(-1) || "";
+  const VALID_EXT_LIST = [".csv", ".json"];
+  const ext = extname(filename);
   if (VALID_EXT_LIST.includes(ext)) {
     return {
       success: true,

@@ -2,7 +2,7 @@
   "tasks": {
     "build": "deno run --allow-read --allow-write --allow-run cli.ts",
     "generate": "deno run --allow-read --allow-write npm:quicktype dictionary.model.ts -o schema.json --lang schema",
-    "test": "deno test --coverage=coverage",
+    "test": "deno test --allow-read --coverage=coverage",
     "coverage": "deno coverage coverage",
     "coverage:output": "deno coverage coverage --lcov --output=coverage.lcov"
   },

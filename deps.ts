@@ -8,7 +8,7 @@ export { compress } from "https://deno.land/x/zip@v1.2.5/mod.ts";
 export { ensureDir } from "https://deno.land/std@0.210.0/fs/mod.ts";
 export { parseArgs } from "https://deno.land/std@0.210.0/cli/parse_args.ts";
 export { walk } from "https://deno.land/std@0.210.0/fs/walk.ts";
-export { join } from "https://deno.land/std@0.210.0/path/mod.ts";
+export { extname, join } from "https://deno.land/std@0.210.0/path/mod.ts";
 
 /* --- test --- */
 export { assertEquals } from "https://deno.land/std@0.210.0/assert/assert_equals.ts";

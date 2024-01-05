@@ -27,7 +27,7 @@ for await (const dirEntry of walk(join(Deno.cwd(), args.dir))) {
     let data: Record<string, string | undefined>[] = [];
 
     switch (isValidFileExtentionResult.result) {
-      case "csv": {
+      case ".csv": {
         data = parsedCsvToJson(await readFile(dirEntry.path));
         break;
       }

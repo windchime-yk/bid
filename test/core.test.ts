@@ -1,5 +1,9 @@
 import { assertEquals } from "../deps.ts";
-import { convertJsonToTextData, parsedCsvToJson } from "../core/convert.ts";
+import {
+  convertJsonToTextData,
+  parsedCsvToJson,
+  readFile,
+} from "../core/convert.ts";
 import { isValidFileExtention, isValidJson } from "../core/validation.ts";
 import { DataPropertyError, FileTypeError } from "../core/error.ts";
 
@@ -7,19 +11,25 @@ Deno.test("ファイル形式がCSVかJSONかを確認する", async (t) => {
   await t.step("CSV", () => {
     assertEquals(isValidFileExtention("test/mock.test.csv"), {
       success: true,
-      result: "csv",
+      result: ".csv",
     });
   });
   await t.step("JSON", () => {
     assertEquals(isValidFileExtention("test/mock.test.json"), {
       success: true,
-      result: "json",
+      result: ".json",
     });
   });
   await t.step("それ以外", () => {
     assertEquals(isValidFileExtention("test/mock.test.yml"), {
       success: false,
       error: new FileTypeError("test/mock.test.yml"),
+    });
+  });
+  await t.step("拡張子なし", () => {
+    assertEquals(isValidFileExtention("test/LICENSE"), {
+      success: false,
+      error: new FileTypeError("test/LICENSE"),
     });
   });
 });
@@ -304,4 +314,11 @@ Deno.test("IMEごとのユーザー辞書データに変換", async (t) => {
       "あそまかといか\t遊馬賀樋香\tja-JP\nあそまか\t遊馬賀\tja-JP\nといか\t樋香\tja-JP\nかかない\t書かない\tja-JP\n",
     );
   });
+});
+
+Deno.test("ファイル読み込み", async () => {
+  assertEquals(
+    await readFile("test/mock/private.csv"),
+    "type,word,reading,isSuppress,isSuggest,description\n人名,遊馬賀樋香,あそまかといか,NO,NO,なんとなく思いついた名前\n姓,遊馬賀,あそまか,NO,NO,なんとなく思いついた名前\n名,樋香,といか,NO,NO,なんとなく思いついた名前",
+  );
 });
