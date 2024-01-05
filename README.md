@@ -1,7 +1,7 @@
 # bId
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/bid/mod.ts)
 
-build IME dictionary. Working in progress.  
+build IME dictionary.  
 Created by Deno.
 
 ## Language Support
@@ -11,22 +11,45 @@ Created by Deno.
 ## Dictionary Support
 
 - Google Japanese IME
-- Kotoeri
+- macOS Japanese Input Method
+- Gboard
+- Microsoft IME
 
 ## Dictionary Table
 
-| Name                | Split Type | Can Set Genre | Can Set Word class |
-| ------------------- | ---------- | ------------- | ------------------ |
-| Google Japanese IME | TSV        | ✔             | ✔                  |
-| Kotoeri             | CSV        | ✗             | ✗                  |
-| Gboard              | TSV        | ✗             | ✗                  |
-| Microsoft IME       | TSV        | ✗             | ✔                  |
+| Name                          | Split Type | Can Set Genre | Can Set Word class |
+| ----------------------------- | ---------- | ------------- | ------------------ |
+| Google IME                    | TSV        | ✔             | ✔                  |
+| macOS Japanese Input Method   | CSV        | ✗             | ✔                  |
+| Gboard                        | TSV        | ✗             | ✗                  |
+| Microsoft IME                 | TSV        | ✗             | ✔                  |
 
 ## Feature
 
 - [ ] API
 - [x] CLI
 - [ ] Web App
+
+## Install
+``` bash
+deno install --allow-read --allow-write --allow-run -n bid https://deno.land/x/bid/cli.ts
+```
+
+## Usage
+### All dictionaries
+``` bash
+bid --dir=test/mock --all
+```
+
+### Specific dictionaries
+``` bash
+bid --dir=test/mock --google --macos --microsoft --gboard
+```
+
+### Compress dictionaries
+``` bash
+bid --dir=test/mock --all --compress
+```
 
 ## Build dictionary workflow example
 ``` yml
