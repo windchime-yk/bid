@@ -32,20 +32,29 @@ Denoで作られた、IMEユーザー辞書統一出力ツール。
 deno install --allow-read --allow-write --allow-run -n bid https://deno.land/x/bid/cli.ts
 ```
 
+## 対応ファイル形式
+以下の入力ファイル形式に対応しています。
+
+- CSV
+- JSON
+
+また、Microsoft Excelなどの表計算ソフトウェアでの利用を想定し、`.xlsx`と`.ods`の実例ファイルも同梱しています。  
+詳しくは`example/input`を確認してください。
+
 ## 使用方法
 ### すべての対応IMEユーザー辞書を出力
 ``` bash
-bid --dir=test/mock --all
+bid --dir=example/input/raw --all
 ```
 
 ### 特定の対応IMEユーザー辞書を出力
 ``` bash
-bid --dir=test/mock --google --macos --microsoft --gboard
+bid --dir=example/input/raw --google --macos --microsoft --gboard
 ```
 
 ### 出力したユーザー辞書ファイル群を圧縮
 ``` bash
-bid --dir=test/mock --all --compress
+bid --dir=example/input/raw --all --compress
 ```
 
 ## GitHub Actionsでの設定例
@@ -69,7 +78,7 @@ jobs:
       - name: Output dictionary data
         run: |
           deno install --allow-read --allow-write -n bid https://deno.land/x/bid/cli.ts
-          bid --dir=test/mock --all
+          bid --dir=example/input/raw --all
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:

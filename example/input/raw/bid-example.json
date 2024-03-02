@@ -1,0 +1,29 @@
+{
+  "$schema": "https://cdn.jsdelivr.net/gh/windchime-yk/bid@v1.0.0/schema.json",
+  "dictionaries": [
+    {
+      "type": "人名",
+      "word": "Ryan Dahl",
+      "reading": "らいあんだーる",
+      "isSuppress": "NO",
+      "isSuggest": "NO",
+      "description": "Node.jsやDenoの生みの親"
+    },
+    {
+      "type": "人名",
+      "word": "Brendan Eich",
+      "reading": "ぶれんだんあいく",
+      "isSuppress": "NO",
+      "isSuggest": "NO",
+      "description": "JavaScriptの生みの親"
+    },
+    {
+      "type": "人名",
+      "word": "Linus Benedict Torvalds",
+      "reading": "りーなすべねでぃくととーばるず",
+      "isSuppress": "NO",
+      "isSuggest": "YES",
+      "description": "Linuxカーネルの生みの親"
+    }
+  ]
+}

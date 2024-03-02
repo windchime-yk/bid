@@ -1,4 +1,4 @@
 .DS_Store
-coverage/
-bid_output/
-bid_output_archive.zip
+/coverage/
+/bid_output
+/bid_output_archive.zip
