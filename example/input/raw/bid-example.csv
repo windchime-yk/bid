@@ -1,0 +1,4 @@
+type,word,reading,isSuppress,isSuggest,description
+人名,Ryan Dahl,らいあんだーる,NO,NO,Node.jsやDenoの生みの親
+人名,Brendan Eich,ぶれんだんあいく,NO,NO,JavaScriptの生みの親
+人名,Linus Benedict Torvalds,りーなすべねでぃくととーばるず,NO,YES,Linuxカーネルの生みの親
