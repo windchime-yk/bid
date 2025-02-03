@@ -1,4 +1,5 @@
-import { Buffer, compress } from "../deps.ts";
+import { Buffer } from "node:buffer";
+import { compress } from "./compress.ts";
 import { imeConfig } from "./config.ts";
 import type { ImeType } from "../model.ts";
 
